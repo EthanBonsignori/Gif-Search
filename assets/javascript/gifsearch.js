@@ -22,14 +22,35 @@ $(document).on('click', '#submit-button', function (event) {
 })
 
 $(document).on('click', '.search-button', function () {
-  
+  let gifDisplay = $('#gif-display')
+  gifDisplay.empty()
   let searchTerm = $(this).attr('data-value')
   let api = `4IYY54HZyXsYnTziL6RL5YrOlTPBe8Ab&q`
   let limit = $('#limit-select').val()
-  console.log(searchTerm)
-
   let queryUrl = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${searchTerm}&limit=${limit}`
-  console.log(queryUrl)
+
+  $.ajax({
+    url: queryUrl,
+    method: 'GET'
+  }).then(function (response) {
+    console.log(response)
+    for (let i = 0; i <= limit; i++) {
+      let path = response.data[i]
+      let gifStill = path.images.fixed_height_still.url
+      let gifAnimated = path.images.fixed_height.url
+      let rating = path.rating
+      let newGif = $(`
+        <figure>
+        <figcaption>rating: ${rating}</figcaption>
+        <img src="${gifStill}" 
+        data-still="${gifStill}" 
+        data-animate="${gifAnimated}" 
+        data-state="still"
+        class="gif">
+        </figure`)
+      gifDisplay.append(newGif)
+    }
+  })
 })
 
 generateButtons()
