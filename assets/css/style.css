@@ -1,0 +1,16 @@
+body {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.search-button {
+  margin: 1rem 0.2rem 0 0.2rem;
+}
+
+#submit-button {
+  margin-top: 0.6rem;
+}
+
+#search-form-text {
+  display: inline;
+}
