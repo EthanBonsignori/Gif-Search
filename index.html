@@ -22,13 +22,15 @@
   <div class="row">
     <div id="search-button-container" class="col-10">
     </div>
-  <div class="col-2">
+  <div class="col-2 mt-3">
       <!-- New Button Input -->
-      <form>
+      <form id="search-form">
         <div class="form-group">
           <label for="new-show">Add a TV show</label>
           <input type="show" class="form-control" id="new-show" placeholder="Enter a TV show">
           <button type="button" id="submit-button" class="btn btn-info">Add</button>
+          <!-- Alert for when there is only spaces or button already exists-->
+          <div class="alert alert-danger fade hide mt-1" role="alert"></div>
         </div>
       </form>
       <!-- Select # of gifs to display -->

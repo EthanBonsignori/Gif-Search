@@ -11,10 +11,12 @@ body {
   margin-top: 0.6rem;
 }
 
-#search-form-text {
-  display: inline;
-}
-
 .gif {
   margin: 1rem;
+  margin-top: 0;
+}
+
+figcaption {
+  margin-left: 1rem;
+  font-weight: bold;
 }
