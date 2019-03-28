@@ -65,8 +65,7 @@ $(document).on('click', '.search-button', function () {
         data-animate="${animated}" 
         data-state="still"
         class="gif">
-        <figcaption><a href="${original}" download="${title}>Download</a>
-        </figure`)
+        </figure`) //<figcaption><a class="download" href="${original}">Download</a></figcaption>
       gifDisplay.append(newGif)
     }
   })
@@ -90,5 +89,10 @@ $('#search-form').submit(function () {
   checkString(newButton)
   return false
 })
+
+// $(document).on('click', '.download', function () {
+//   let href = $(this).attr('href')
+//   window.location.href = href
+// })
 
 generateButtons()
