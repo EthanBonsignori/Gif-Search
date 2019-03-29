@@ -4,12 +4,14 @@ let topics = ['game of thrones', 'stranger things', 'orange is the new black', '
 let generateButtons = () => {
   let searchButtonContainer = $('#search-button-container')
   $('.search-button').remove()
+  $('#divider').remove()
   for (let i = 0; i < topics.length; i++) {
     let button = $(`<button type="button" class="btn btn-info search-button" data-value="${topics[i]}">`)
     let buttonText = topics[i]
     button.text(buttonText)
     searchButtonContainer.append(button)
   }
+  searchButtonContainer.append($('<hr id="divider">'))
 }
 
 // Add new button to the list
@@ -75,7 +77,7 @@ $(document).on('click', '.search-button', function () {
               <i class="fas fa-download"></i>
           </a>
         </figure`)
-      gifDisplay.prepend(newGif)
+      gifDisplay.append(newGif)
       getTooltips()
     }
   })
@@ -130,5 +132,12 @@ $('#search-form').submit(function () {
 let getTooltips = () => {
   $('[data-toggle="tooltip"]').tooltip()
 }
+
+$(document).ready(function () {
+
+  $('#sidebar').mCustomScrollbar({
+    theme: 'minimal'
+  })
+})
 
 generateButtons()

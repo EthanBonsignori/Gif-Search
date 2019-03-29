@@ -1,50 +1,85 @@
 body {
-  margin-left: 1rem;
-  margin-right: 1rem;
+  color: #fff;
+  background-color: #1E1E1E;
 }
 
 p {
   margin-bottom: 0.5rem;
 }
 
-.search-button {
-  margin: 1rem 0.2rem 0 0.2rem;
+h4 {
+  margin-top: 2rem;
 }
 
-#submit-button {
-  margin-top: 0.6rem;
+.wrapper {
+  display: flex;
+  align-items: stretch;
 }
 
-#show-info {
-  padding: 0;
-  margin-top: 1rem;
+#sidebar {
+  background-color: #333333;
+  width: 16.666667%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 999;
+  padding-right: 15px;
+  padding-left: 15px;
+  overflow: scroll;
 }
+  #sidebar-title {
+    margin-top: 1rem;
+  }
 
-.gif-figure {
-  position: relative;
-  display: inline-block;
-}
-
-.gif {
-  margin: 0 1rem;
-  display: inline-block;
-}
-
-figcaption {
-  margin-left: 1rem;
-  font-weight: bold;
-}
-
-.download {
-  color: rgba(0, 174, 255, 0.4);
-  font-size: 2rem;
+#content {
+  width: calc(100% - 16.666667%);
   position: absolute;
-  bottom: 0;
-  left: 20px;
+  top: 0;
+  right: 0;
 }
-  .download:hover {
-    color: rgba(0, 174, 255, 0.8);
+
+#search-button-container {
+  background-color: #252526;
+  padding: 1rem;
+}
+  .search-button {
+    margin: 1rem 0.2rem 0 0.2rem;
   }
-  .download:active {
-    color: rgba(0, 174, 255, 1);
+  #submit-button {
+    margin-top: 0.6rem;
   }
+  #show-info {
+    padding: 0;
+    margin-top: 1rem;
+  }
+
+#gif-display {
+  background-color: #1E1E1E;
+  padding: 1rem;
+}
+  .gif-figure {
+    position: relative;
+    display: inline-block;
+  }
+  .gif {
+    margin: 0 1rem;
+    display: inline-block;
+  }
+  figcaption {
+    margin-left: 1rem;
+    font-weight: bold;
+  }
+  .download {
+    color: rgba(0, 174, 255, 0.4);
+    font-size: 2rem;
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+  }
+    .download:hover {
+      color: rgba(0, 174, 255, 0.8);
+    }
+    .download:active {
+      color: rgba(0, 174, 255, 1);
+    }

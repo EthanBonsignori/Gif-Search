@@ -12,50 +12,56 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <!-- Scrollbar Custom CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
   <!-- My CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 
 
 </head>
 <body>
-  <!-- Search Buttons -->
-  <div class="row">
-    <div id="search-button-container" class="col-10">
-  </div>
-
-  <!-- Gifs Append Here -->
-  <div id="gif-display" class="col-10"></div>
-
+ 
   <!-- New Button Input -->
-  <div class="col-2 sidebar">
-      <form id="search-form">
-        <div class="form-group">
-          <label for="new-show">Add a TV show</label>
-          <input type="show" class="form-control" id="new-show" placeholder="Enter a TV show">
-          <button type="button" id="submit-button" class="btn btn-info">Add</button>
-          <!-- Alert for when there is only spaces or button already exists-->
-          <div class="alert alert-danger fade hide mt-1" role="alert"></div>
-        </div>
-      </form>
-      <!-- Select # of gifs to display -->
-      <label for="limit-select">Number of Gifs to display</label>
-      <select class="custom-select" id="limit-select">
-          <option value="1">1</option>
-        <option value="5">5</option>
-        <option selected value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-      </select>
-      <!-- Show info Appends here -->
-      <div id="show-info" class="col-12"></div>
+  <div class="wrapper">
+    <nav id="sidebar">
+        <form id="search-form">
+          <div class="form-group">
+            <label id="sidebar-title" for="new-show">Add a TV show</label>
+            <input type="show" class="form-control" id="new-show" placeholder="Title...">
+            <button type="button" id="submit-button" class="btn btn-info">Add</button>
+            <!-- Alert for when there is only spaces or button already exists-->
+            <div class="alert alert-danger fade hide mt-1" role="alert"></div>
+          </div>
+        </form>
+        <!-- Select # of gifs to display -->
+        <label for="limit-select">Number of Gifs to display</label>
+        <select class="custom-select" id="limit-select">
+            <option value="1">1</option>
+          <option value="5">5</option>
+          <option selected value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+        <!-- Show info Appends here -->
+        <div id="show-info" class="col-12"></div>
+    </nav>
+  
+    <div id="content">
+      <!-- Search Buttons -->
+      <div id="search-button-container"></div>
+      <!-- Gifs Append Here -->
+      <div id="gif-display"></div>
     </div>
 
+  </div><!-- End Wrapper -->
 
-  </div> <!-- End Row -->
   <!-- Bootstrap JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- jQuery Custom Scroller CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
   <!-- My JavaScript -->
   <script src="assets/javascript/gifsearch.js"></script>
