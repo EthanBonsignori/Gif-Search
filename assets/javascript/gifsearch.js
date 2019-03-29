@@ -1,9 +1,9 @@
-let topics = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob squarepants', 'the good place', 'the haunting of hill house', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
+let topics = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob squarepants', 'the good place', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
 
 // Create buttons based on what is in the topics array
 let generateButtons = () => {
   let searchButtonContainer = $('#search-button-container')
-  searchButtonContainer.empty()
+  $('.search-button').remove()
   for (let i = 0; i < topics.length; i++) {
     let button = $(`<button type="button" class="btn btn-info search-button" data-value="${topics[i]}">`)
     let buttonText = topics[i]
@@ -26,7 +26,6 @@ let checkString = (text) => {
     return
   }
   if (topics.indexOf(text) >= 0) {
-    console.log('already have that button')
     alert.html(`<strong>You already have a button for that!</strong>`)
     alert.addClass('show')
     return
@@ -43,10 +42,13 @@ $(document).on('click', '.search-button', function () {
   let searchTerm = $(this).attr('data-value')
   let api = `4IYY54HZyXsYnTziL6RL5YrOlTPBe8Ab&q`
   let limit = $('#limit-select').val()
-  let queryUrl = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${searchTerm}&limit=${limit}`
+  let queryUrlgifs = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${searchTerm}&limit=${limit}`
 
+  displayShowInfo(searchTerm)
+
+  // Get gifs from giphy
   $.ajax({
-    url: queryUrl,
+    url: queryUrlgifs,
     method: 'GET'
   }).then(function (response) {
     console.log(response)
@@ -55,21 +57,56 @@ $(document).on('click', '.search-button', function () {
       let still = path.images.fixed_height_still.url
       let animated = path.images.fixed_height.url
       let original = path.images.original.url
-      let title = path.title
       let rating = path.rating
       let newGif = $(`
-        <figure>
-        <figcaption>rating: ${rating}</figcaption>
-        <img src="${still}" 
-        data-still="${still}" 
-        data-animate="${animated}" 
-        data-state="still"
-        class="gif">
-        </figure`) //<figcaption><a class="download" href="${original}">Download</a></figcaption>
-      gifDisplay.append(newGif)
+        <figure class="gif-figure">
+          <figcaption>rating: ${rating}</figcaption>
+          <img src="${still}" 
+            data-still="${still}" 
+            data-animate="${animated}" 
+            data-state="still"
+            class="gif">
+          <a class="download" 
+            data-toggle="tooltip" 
+            data-placement="top" 
+            title="Source" 
+            href="${original}" 
+            target="_blank">
+              <i class="fas fa-download"></i>
+          </a>
+        </figure`)
+      gifDisplay.prepend(newGif)
+      getTooltips()
     }
   })
 })
+
+// displayMovieInfo function re-renders the HTML to display the appropriate content
+let displayShowInfo = (term) => {
+  let showSelector = $('#show-info')
+  showSelector.empty()
+  let queryURLshow = `https://www.omdbapi.com/?t=${term}&apikey=trilogy`;
+  // Creating an AJAX call for the specific show
+  $.ajax({
+    url: queryURLshow,
+    method: 'GET'
+  }).then(function (response) {
+    console.log(response)
+    // Create html elements with info from ajax call and append them
+    let showDiv = $("<div class='show'>")
+    let title = $('<h4 id="title">').text(`${response.Title}`)
+    showDiv.append(title)
+    let pOne = $('<p>').text(`Rating: ${response.Rated}`)
+    showDiv.append(pOne)
+    let pTwo = $('<p>').text(`Aired: ${response.Released}`)
+    showDiv.append(pTwo)
+    let pThree = $('<p>').text(`${response.Plot}`)
+    showDiv.append(pThree)
+    let image = $('<img id="poster">').attr('src', response.Poster)
+    showDiv.append(image)
+    $('#show-info').append(showDiv)
+  })
+}
 
 // Pause and play gifs when clicked on
 $(document).on('click', '.gif', function () {
@@ -90,9 +127,8 @@ $('#search-form').submit(function () {
   return false
 })
 
-// $(document).on('click', '.download', function () {
-//   let href = $(this).attr('href')
-//   window.location.href = href
-// })
+let getTooltips = () => {
+  $('[data-toggle="tooltip"]').tooltip()
+}
 
 generateButtons()
