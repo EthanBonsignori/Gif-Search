@@ -94,18 +94,29 @@ let displayShowInfo = (term) => {
     method: 'GET'
   }).then(function (response) {
     console.log(response)
+    let imdbId = response.imdbID
+    let imdbLink = `https://www.imdb.com/title/${imdbId}/`
+    console.groupCollapsed(imdbId)
     // Create html elements with info from ajax call and append them
     let showDiv = $("<div class='show'>")
-    let title = $('<h4 id="title">').text(`${response.Title}`)
+    let title = $('<h3 id="program-title">').text(`${response.Title}`)
     showDiv.append(title)
-    let pOne = $('<p>').text(`Rating: ${response.Rated}`)
+    let pOne = $('<p>').html(`<b>Rating: </b> ${response.Rated}`)
     showDiv.append(pOne)
-    let pTwo = $('<p>').text(`Aired: ${response.Released}`)
+    let pTwo = $('<p>').html(`<b>First Episode: </b> ${response.Released}`)
     showDiv.append(pTwo)
     let pThree = $('<p>').text(`${response.Plot}`)
     showDiv.append(pThree)
-    let image = $('<img id="poster">').attr('src', response.Poster)
-    showDiv.append(image)
+    let imageDiv = $('<div id="poster-div">')
+    let imageLink = $(`<a>`).attr('href', imdbLink)
+    imageLink.attr('target', '_blank')
+    imageDiv.append(imageLink)
+    let image = $(`<img id="poster">`).attr('src', response.Poster)
+    imageLink.append(image)
+    let imdb = $('<p id="imdb">').html(`<i class="fab fa-imdb"></i>`)
+    imageLink.append(imdb)
+    showDiv.append(imageDiv)
+    
     $('#show-info').append(showDiv)
   })
 }
