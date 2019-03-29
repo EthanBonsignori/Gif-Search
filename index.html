@@ -28,19 +28,19 @@
           <div class="form-group">
             <label id="sidebar-title" for="new-show">Add a TV show</label>
             <input type="show" class="form-control" id="new-show" placeholder="Title...">
-            <button type="button" id="submit-button" class="btn btn-info">Add</button>
+            <button type="button" id="submit-button" class="btn btn-info sharp">Add</button>
             <!-- Alert for when there is only spaces or button already exists-->
-            <div class="alert alert-danger fade hide mt-1" role="alert"></div>
+            <div class="alert alert-danger fade hide" role="alert"></div>
           </div>
         </form>
         <!-- Select # of gifs to display -->
         <label for="limit-select">Number of Gifs to display</label>
         <select class="custom-select" id="limit-select">
-            <option value="1">1</option>
           <option value="5">5</option>
           <option selected value="10">10</option>
           <option value="20">20</option>
           <option value="30">30</option>
+          <option value="50">50</option>
         </select>
         <!-- Show info Appends here -->
         <div id="show-info" class="col-12"></div>
