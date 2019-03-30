@@ -1,5 +1,5 @@
-let series = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob squarepants', 'the good place', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
-let movies = ['forrest gump', 'the room', 'the godfather', 'lord of the rings: the fellowship of the ring', 'star wars: episode v', 'troll 2']
+let series = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob', 'the good place', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
+let movies = ['forrest gump', 'the room', 'the godfather', 'lord of the rings: the fellowship of the ring', 'star wars: episode v', 'troll 2', 'toy story 4']
 
 let buttonType
 let initVars = () => {
@@ -165,7 +165,7 @@ let displayInfo = (term, type) => {
     let infoDiv = $(`
       <div class='show'>
         <h3>${response.Title}</h3>
-        <p><b>Rating: </b>${response.Rated}</p>
+        <p id="rating-text"><b>Rating: </b>${response.Rated}</p>
         <p id="date-text"><b>${dateText}</b>${response.Released}</p>
         <p>${response.Plot}</p>
         <div id="poster-div">
@@ -188,9 +188,15 @@ let displayInfo = (term, type) => {
       `)
     } 
     let metascore = response.Metascore
+    let imdbRating = response.imdbRating
     let score = `<p class="mt-2"><b>Metascore: </b>${metascore}</p>`
     if (metascore === 'N/A') {
-      score = `<p class="mt-2"><b>IMDb Rating: </b> <i class="fas fa-star"></i> ${response.imdbRating}</p>`
+      score = `<p class="mt-2"><b>IMDb Score: </b> <i class="fas fa-star"></i> ${imdbRating}</p>`
+    }
+    if (metascore === 'N/A' && imdbRating === 'N/A') {
+      $('#rating-text').html(`<b>Rating: </b>Unreleased</p>`)
+      $('#date-text').html(`<b>Release date: </b>${response.Released}`)
+      score = `<p class="mt-2"><b>Metascore: </b>Unreleased</p>`
     }
     $('#date-text').append(score)
   })
