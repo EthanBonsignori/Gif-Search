@@ -186,7 +186,13 @@ let displayInfo = (term, type) => {
       $('#date-text').append(`
         <p class="mt-2"><b>Seasons: </b>${response.totalSeasons} (${year})</p>
       `)
+    } 
+    let metascore = response.Metascore
+    let score = `<p class="mt-2"><b>Metascore: </b>${metascore}</p>`
+    if (metascore === 'N/A') {
+      score = `<p class="mt-2"><b>IMDb Rating: </b> <i class="fas fa-star"></i> ${response.imdbRating}</p>`
     }
+    $('#date-text').append(score)
   })
 }
 
