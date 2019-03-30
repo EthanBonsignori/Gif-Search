@@ -1,5 +1,5 @@
 let series = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob squarepants', 'the good place', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
-let movies = ['forrest gump', 'godfather', 'lord of the rings: the fellowship of the ring', 'star wars: episode v', 'trolls 2']
+let movies = ['forrest gump', 'the room', 'godfather', 'lord of the rings: the fellowship of the ring', 'star wars: episode v', 'troll 2']
 
 let buttonType
 let initVars = () => {
@@ -12,7 +12,7 @@ let generateButtons = (type) => {
   if ( type === 'series' ) {
     $('#series .search-button').remove()
     for (let i = 0; i < series.length; i++) {
-      let button = $(`<button type="button" class="btn btn-info search-button ${type}" data-value="${series[i]}">`)
+      let button = $(`<button type="button" class="btn btn-info search-button" data-type="${type}" data-name="${series[i]}">`)
       let buttonText = series[i]
       button.text(buttonText)
       seriesButtons.append(button)
@@ -21,7 +21,7 @@ let generateButtons = (type) => {
   if ( type === 'movie' ) {
     $('#movies .search-button').remove()
     for (let i = 0; i < movies.length; i++) {
-      let button = $(`<button type="button" class="btn btn-info search-button ${type}" data-value="${movies[i]}">`)
+      let button = $(`<button type="button" class="btn btn-info search-button" data-type="${type}" data-name="${movies[i]}">`)
       let buttonText = movies[i]
       button.text(buttonText)
       movieButtons.append(button)
@@ -99,19 +99,20 @@ let checkString = (text, type) => {
 $(document).on('click', '.search-button', function () {
   let gifDisplay = $('#gif-display')
   gifDisplay.empty()
-  let searchTerm = $(this).attr('data-value')
+  let searchType = $(this).attr('data-type')
+  let searchTerm = $(this).attr('data-name')
   let api = `4IYY54HZyXsYnTziL6RL5YrOlTPBe8Ab&q`
   let limit = $('#limit-select').val()
   let queryUrlgifs = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${searchTerm}&limit=${limit}`
 
-  displayInfo(searchTerm)
+  displayInfo(searchTerm, searchType)
 
   // Get gifs from giphy
   $.ajax({
     url: queryUrlgifs,
     method: 'GET'
   }).then(function (response) {
-    // console.log(response)
+    console.log(response)
     for (let i = 0; i <= limit; i++) {
       let path = response.data[i]
       let still = path.images.fixed_height_still.url
@@ -142,8 +143,13 @@ $(document).on('click', '.search-button', function () {
 })
 
 // Shows movie info and poster
-let displayInfo = (term) => {
-  console.log('getting info...')
+let displayInfo = (term, type) => {
+  let dateText = ''
+  if (type === 'movie') {
+    dateText = 'Released: '
+  } else {
+    dateText = 'First Episode: '
+  }
   let seriesSelector = $('#info')
   seriesSelector.empty()
   let queryURL = `https://www.omdbapi.com/?t=${term}&apikey=trilogy`
@@ -160,7 +166,7 @@ let displayInfo = (term) => {
       <div class='show'>
         <h3>${response.Title}</h3>
         <p><b>Rating: </b>${response.Rated}</p>
-        <p><b>First Released: </b>${response.Released}</p>
+        <p id="date-text"><b>${dateText}</b>${response.Released}</p>
         <p>${response.Plot}</p>
         <div id="poster-div">
           <a href="${imdbLink}" target="_blank">
@@ -172,6 +178,15 @@ let displayInfo = (term) => {
     `)
     // Append newly created html elements
     $('#info').append(infoDiv)
+    if (type === 'series') {
+      let year = response.Year
+      if (year.charAt(5) === '') {
+        year = `${response.Year}Present`
+      }
+      $('#date-text').append(`
+        <p class="mt-2"><b>Seasons: </b>${response.totalSeasons} (${year})</p>
+      `)
+    }
   })
 }
 
