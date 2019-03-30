@@ -1,5 +1,5 @@
 let series = ['game of thrones', 'stranger things', 'spongebob', 'the good place', 'last week tonight', 'curb your enthusiasm', 'seinfeld', 'the office', 'breaking bad', 'freaks and geeks']
-let movies = ['forrest gump', 'the room', 'the godfather', 'lord of the rings: the fellowship of the ring', 'star wars: episode v', 'troll 2', 'toy story 4']
+let movies = ['forrest gump', 'the room', 'the godfather', 'lord of the rings: the two towers', 'star wars: episode v', 'troll 2', 'toy story 4', 'lebowski']
 
 let buttonType
 let initVars = () => {
