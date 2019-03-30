@@ -32,7 +32,7 @@ p {
     width: 100%;
     margin-top: 1rem;
   }
-  #new-show {
+  #new-title {
     width: 80%;
     float: left;
     border-top-right-radius: 0;
@@ -45,6 +45,7 @@ p {
     border-bottom-left-radius: 0;
   }
   .alert {
+    margin-top: 1rem;
     width: 100%;
     float: left;
   }
@@ -62,17 +63,17 @@ p {
 }
 
 /* Top buttons */
-#search-button-container {
+.button-container {
   background-color: #252526;
   padding: 1rem;
 }
   .search-button {
-    margin: 1rem 0.2rem 0 0.2rem;
+    margin: 0.2rem;
   }
   #program-title {
     margin-top: 2rem;
   }
-  #show-info {
+  #info {
     padding: 0;
     margin-top: 1rem;
   }
@@ -83,7 +84,6 @@ p {
     text-align: center;
     color: rgb(255, 255, 255, 0.5);
     opacity: 1;
-    
   }
     #poster {
       transition: opacity 0.8s;

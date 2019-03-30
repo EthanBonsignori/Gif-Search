@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Gif Search</title>
+  <title>GifSearch</title>
 
   <!-- Reset CSS -->
   <link rel="stylesheet" href="assets/css/reset.css"> 
@@ -32,9 +32,9 @@
       <!-- New Button Input -->
         <form id="search-form">
           <div class="form-group">
-            <label id="search-label" for="new-show">Add a TV show</label>
-            <input type="show" class="form-control" id="new-show" placeholder="Title...">
-            <button type="button" class="btn btn-info submit" id="submit-button">Add</button>
+            <label id="search-label" for="new-title">New Movie or Show</label>
+            <input type="text" class="form-control" id="new-title" placeholder="Title...">
+            <button type="button" class="btn btn-info submit" id="submit-button"><i class="fas fa-angle-double-right"></i></button>
             <!-- Alert for when there is only spaces or button already exists-->
             <div class="alert alert-danger fade hide" role="alert"></div>
           </div>
@@ -49,12 +49,18 @@
           <option value="50">50</option>
         </select>
         <!-- Show info Appends here -->
-        <div id="show-info" class="col-12"></div>
-    </nav>
+        <div id="info" class="col-12"></div>
+
+    </nav><!-- End Sidebar -->
   
     <div id="content">
       <!-- Search Buttons -->
-      <div id="search-button-container"></div>
+      <div id="series" class="button-container">
+          <h2>Shows</h2>
+      </div>
+      <div id="movies" class="button-container">
+        <h2>Movies</h2>
+      </div>
       <!-- Gifs Append Here -->
       <div id="gif-display"></div>
     </div>

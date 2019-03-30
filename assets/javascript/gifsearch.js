@@ -1,54 +1,98 @@
-let topics = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob squarepants', 'the good place', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
+let series = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob squarepants', 'the good place', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
+let movies = ['forrest gump', 'godfather', 'lord of the rings: the fellowship of the ring', 'star wars: episode v', 'trolls 2']
 
-let isMovie = false
-let isShow = false
-
+let buttonType
+let initVars = () => {
+  buttonType = 'neither'
+}
 // Create buttons based on what is in the topics array
-let generateButtons = () => {
-  let searchButtonContainer = $('#search-button-container')
-  $('.search-button').remove()
-  $('#divider').remove()
-  for (let i = 0; i < topics.length; i++) {
-    let button = $(`<button type="button" class="btn btn-info search-button" data-value="${topics[i]}">`)
-    let buttonText = topics[i]
-    button.text(buttonText)
-    searchButtonContainer.append(button)
+let generateButtons = (type) => {
+  let seriesButtons = $('#series')
+  let movieButtons = $('#movies')
+  if ( type === 'series' ) {
+    $('#series .search-button').remove()
+    for (let i = 0; i < series.length; i++) {
+      let button = $(`<button type="button" class="btn btn-info search-button ${type}" data-value="${series[i]}">`)
+      let buttonText = series[i]
+      button.text(buttonText)
+      seriesButtons.append(button)
+    }
   }
-  searchButtonContainer.append($('<hr id="divider">'))
+  if ( type === 'movie' ) {
+    $('#movies .search-button').remove()
+    for (let i = 0; i < movies.length; i++) {
+      let button = $(`<button type="button" class="btn btn-info search-button ${type}" data-value="${movies[i]}">`)
+      let buttonText = movies[i]
+      button.text(buttonText)
+      movieButtons.append(button)
+    }
+  }
+  initVars()
 }
 
-// Add new button to the list
+// When the user clicks the submit button, begin adding new button
 $(document).on('click', '#submit-button', function () {
-  let newButton = $('#new-show').val().trim().toLowerCase()
-  checkString(newButton)
+  checkButton()
+})
+// Prevent page from reloading when user presses the enter key
+$('#search-form').submit(function () {
+  checkButton()
+  return false
 })
 
-let checkString = (text) => {
+let checkButton = () => {
+  let newButton = $('#new-title').val().trim().toLowerCase()
+  checkMovieOrShow(newButton)
+}
+
+let checkMovieOrShow = (input) => {
+  let queryURL = `https://www.omdbapi.com/?t=${input}&apikey=trilogy`
+
+  $.ajax({
+    url: queryURL,
+    method: 'GET'
+  }).then(function (response) {
+    let type = response.Type
+    console.log(type)
+    if (type === 'series') {
+      buttonType = 'series'
+    }
+    if (type === 'movie') {
+      buttonType = 'movie'
+    }
+    if (response.Response === 'False') {
+      buttonType = 'neither'
+      console.log('Not a movie or tv show!')
+    }
+    checkString(input, buttonType)
+  })
+}
+
+let checkString = (text, type) => {
   let alert = $('.alert')
   if (text === '') {
     alert.html(`<strong>Some text is required!</strong>`)
     alert.addClass('show')
     return
   }
-  if (topics.indexOf(text) >= 0) {
-    alert.html(`<strong>You already have a button for that!</strong>`)
+  if (series.indexOf(text) >= 0 || movies.indexOf(text) >= 0) {
+    alert.html(`<strong>Button already exists!</strong>`)
+    alert.addClass('show')
+    return
+  }
+  if (type === 'neither') {
+    alert.html(`<strong>That isn't a movie or TV show!</strong>`)
     alert.addClass('show')
     return
   }
   alert.removeClass('show')
-  topics.push(text)
-  generateButtons()
-}
-
-let checkMovieOrShow = () => {
-  let queryURL = `https://www.omdbapi.com/?t=${term}&apikey=trilogy`
-
-  $.ajax({
-    url: queryURL,
-    method: 'GET'
-  }).then(function (response) {
-    console.log(response)
-  })
+  if (type === 'series') {
+    series.push(text)
+  }
+  if (type === 'movie') {
+    movies.push(text)
+  }
+  generateButtons(type)
 }
 
 // Search and append gifs
@@ -60,14 +104,14 @@ $(document).on('click', '.search-button', function () {
   let limit = $('#limit-select').val()
   let queryUrlgifs = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${searchTerm}&limit=${limit}`
 
-  displayShowInfo(searchTerm)
+  displayInfo(searchTerm)
 
   // Get gifs from giphy
   $.ajax({
     url: queryUrlgifs,
     method: 'GET'
   }).then(function (response) {
-    console.log(response)
+    // console.log(response)
     for (let i = 0; i <= limit; i++) {
       let path = response.data[i]
       let still = path.images.fixed_height_still.url
@@ -97,10 +141,11 @@ $(document).on('click', '.search-button', function () {
   })
 })
 
-// displayMovieInfo function re-renders the HTML to display the appropriate content
-let displayShowInfo = (term) => {
-  let showSelector = $('#show-info')
-  showSelector.empty()
+// Shows movie info and poster
+let displayInfo = (term) => {
+  console.log('getting info...')
+  let seriesSelector = $('#info')
+  seriesSelector.empty()
   let queryURL = `https://www.omdbapi.com/?t=${term}&apikey=trilogy`
   // Creating an AJAX call for the specific show
   $.ajax({
@@ -111,26 +156,22 @@ let displayShowInfo = (term) => {
     let imdbId = response.imdbID
     let imdbLink = `https://www.imdb.com/title/${imdbId}/`
     // Create html elements with info from ajax call
-    let showDiv = $("<div class='show'>")
-    let title = $('<h3 id="program-title">').text(`${response.Title}`)
-    let pOne = $('<p>').html(`<b>Rating: </b> ${response.Rated}`)
-    let pTwo = $('<p>').html(`<b>First Episode: </b> ${response.Released}`)
-    let pThree = $('<p>').text(`${response.Plot}`)
-    let imageDiv = $('<div id="poster-div">')
-    let imageLink = $(`<a>`).attr('href', imdbLink)
-    imageLink.attr('target', '_blank')
-    let image = $(`<img id="poster">`).attr('src', response.Poster)
-    let imdb = $('<p id="imdb">').html(`<i class="fab fa-imdb"></i>`)
+    let infoDiv = $(`
+      <div class='show'>
+        <h3>${response.Title}</h3>
+        <p><b>Rating: </b>${response.Rated}</p>
+        <p><b>First Released: </b>${response.Released}</p>
+        <p>${response.Plot}</p>
+        <div id="poster-div">
+          <a href="${imdbLink}" target="_blank">
+            <img src="${response.Poster}" id="poster">
+            <p id="imdb"><i class="fab fa-imdb"></i></p>
+          </a>
+        </div>
+      </div>
+    `)
     // Append newly created html elements
-    showDiv.append(title)
-    showDiv.append(pOne)
-    showDiv.append(pTwo)
-    showDiv.append(pThree)
-    imageDiv.append(imageLink)
-    imageLink.append(image)
-    imageLink.append(imdb)
-    showDiv.append(imageDiv)  
-    $('#show-info').append(showDiv)
+    $('#info').append(infoDiv)
   })
 }
 
@@ -146,13 +187,6 @@ $(document).on('click', '.gif', function () {
   }
 })
 
-// Prevent page from reloading when user presses the enter key
-$('#search-form').submit(function () {
-  let newButton = $('#new-show').val().trim().toLowerCase()
-  checkString(newButton)
-  return false
-})
-
 let getTooltips = () => {
   $('[data-toggle="tooltip"]').tooltip()
 }
@@ -164,4 +198,6 @@ $(document).ready(function () {
   })
 })
 
-generateButtons()
+
+generateButtons('series')
+generateButtons('movie')
