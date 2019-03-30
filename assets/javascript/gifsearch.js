@@ -1,4 +1,4 @@
-let series = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob', 'the good place', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
+let series = ['game of thrones', 'stranger things', 'spongebob', 'the good place', 'last week tonight', 'curb your enthusiasm', 'seinfeld', 'the office', 'breaking bad', 'freaks and geeks']
 let movies = ['forrest gump', 'the room', 'the godfather', 'lord of the rings: the fellowship of the ring', 'star wars: episode v', 'troll 2', 'toy story 4']
 
 let buttonType
@@ -9,7 +9,7 @@ let initVars = () => {
 let generateButtons = (type) => {
   let seriesButtons = $('#series')
   let movieButtons = $('#movies')
-  if ( type === 'series' ) {
+  if (type === 'series') {
     $('#series .search-button').remove()
     for (let i = 0; i < series.length; i++) {
       let button = $(`<button type="button" class="btn btn-info search-button" data-type="${type}" data-name="${series[i]}">`)
@@ -18,7 +18,7 @@ let generateButtons = (type) => {
       seriesButtons.append(button)
     }
   }
-  if ( type === 'movie' ) {
+  if (type === 'movie') {
     $('#movies .search-button').remove()
     for (let i = 0; i < movies.length; i++) {
       let button = $(`<button type="button" class="btn btn-info search-button" data-type="${type}" data-name="${movies[i]}">`)
@@ -170,29 +170,34 @@ let displayInfo = (term, type) => {
         <p>${response.Plot}</p>
         <div id="poster-div">
           <a href="${imdbLink}" target="_blank">
-            <img src="${response.Poster}" id="poster">
+            <img src="${response.Poster}" id="poster" alt="Poster">
             <p id="imdb"><i class="fab fa-imdb"></i></p>
           </a>
         </div>
+        <h6 id="poster-text">click poster for more info</h6>
       </div>
     `)
     // Append newly created html elements
     $('#info').append(infoDiv)
+    // Check if tv series or movie and change info to match
     if (type === 'series') {
+      // If its a show, display how long it has been running
       let year = response.Year
-      if (year.charAt(5) === '') {
+      if (year.charAt(4) === '–' && year.charAt(5) === '') {
         year = `${response.Year}Present`
       }
       $('#date-text').append(`
         <p class="mt-2"><b>Seasons: </b>${response.totalSeasons} (${year})</p>
       `)
-    } 
+    }
+    // Display metascore if it exists and imdb rating if not (usually only metascore for movies)
     let metascore = response.Metascore
     let imdbRating = response.imdbRating
     let score = `<p class="mt-2"><b>Metascore: </b>${metascore}</p>`
     if (metascore === 'N/A') {
       score = `<p class="mt-2"><b>IMDb Score: </b> <i class="fas fa-star"></i> ${imdbRating}</p>`
     }
+    // If neither metascore or imdb rating exist - assume it is unreleased
     if (metascore === 'N/A' && imdbRating === 'N/A') {
       $('#rating-text').html(`<b>Rating: </b>Unreleased</p>`)
       $('#date-text').html(`<b>Release date: </b>${response.Released}`)

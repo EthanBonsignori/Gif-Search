@@ -54,30 +54,6 @@ p {
     clear: both;
     display: table;
   }
-
-#content {
-  width: calc(100% - 16.666667%);
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-/* Top buttons */
-.button-container {
-  background-color: #252526;
-  padding: 1rem;
-}
-  .search-button {
-    margin: 0.2rem;
-  }
-  #program-title {
-    margin-top: 2rem;
-  }
-  #info {
-    padding: 0;
-    margin-top: 1rem;
-  }
-
   /* Poster */
   #poster-div {
     position: relative;
@@ -104,6 +80,34 @@ p {
       font-size: 5rem;
       transition: opacity 0.8s;
     }
+    #poster-text {
+      color: rgb(138, 138, 138);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+#content {
+  width: calc(100% - 16.666667%);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* Top buttons */
+.button-container {
+  background-color: #252526;
+  padding: 1rem;
+}
+  .search-button {
+    margin: 0.2rem;
+  }
+  #program-title {
+    margin-top: 2rem;
+  }
+  #info {
+    padding: 0;
+    margin-top: 1rem;
+  }
 
 /* Gifs */
 #gif-display {
@@ -117,6 +121,7 @@ p {
   .gif {
     margin: 0 1rem;
     display: inline-block;
+    cursor: pointer;
   }
   figcaption {
     margin-left: 1rem;
