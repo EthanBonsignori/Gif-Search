@@ -1,5 +1,8 @@
 let topics = ['game of thrones', 'stranger things', 'orange is the new black', 'spongebob squarepants', 'the good place', 'last week tonight', 'seinfeld', 'curb your enthusiasm', 'the office', 'breaking bad']
 
+let isMovie = false
+let isShow = false
+
 // Create buttons based on what is in the topics array
 let generateButtons = () => {
   let searchButtonContainer = $('#search-button-container')
@@ -35,6 +38,17 @@ let checkString = (text) => {
   alert.removeClass('show')
   topics.push(text)
   generateButtons()
+}
+
+let checkMovieOrShow = () => {
+  let queryURL = `https://www.omdbapi.com/?t=${term}&apikey=trilogy`
+
+  $.ajax({
+    url: queryURL,
+    method: 'GET'
+  }).then(function (response) {
+    console.log(response)
+  })
 }
 
 // Search and append gifs
@@ -87,36 +101,35 @@ $(document).on('click', '.search-button', function () {
 let displayShowInfo = (term) => {
   let showSelector = $('#show-info')
   showSelector.empty()
-  let queryURLshow = `https://www.omdbapi.com/?t=${term}&apikey=trilogy`;
+  let queryURL = `https://www.omdbapi.com/?t=${term}&apikey=trilogy`
   // Creating an AJAX call for the specific show
   $.ajax({
-    url: queryURLshow,
+    url: queryURL,
     method: 'GET'
   }).then(function (response) {
     console.log(response)
     let imdbId = response.imdbID
     let imdbLink = `https://www.imdb.com/title/${imdbId}/`
-    console.groupCollapsed(imdbId)
-    // Create html elements with info from ajax call and append them
+    // Create html elements with info from ajax call
     let showDiv = $("<div class='show'>")
     let title = $('<h3 id="program-title">').text(`${response.Title}`)
-    showDiv.append(title)
     let pOne = $('<p>').html(`<b>Rating: </b> ${response.Rated}`)
-    showDiv.append(pOne)
     let pTwo = $('<p>').html(`<b>First Episode: </b> ${response.Released}`)
-    showDiv.append(pTwo)
     let pThree = $('<p>').text(`${response.Plot}`)
-    showDiv.append(pThree)
     let imageDiv = $('<div id="poster-div">')
     let imageLink = $(`<a>`).attr('href', imdbLink)
     imageLink.attr('target', '_blank')
-    imageDiv.append(imageLink)
     let image = $(`<img id="poster">`).attr('src', response.Poster)
-    imageLink.append(image)
     let imdb = $('<p id="imdb">').html(`<i class="fab fa-imdb"></i>`)
+    // Append newly created html elements
+    showDiv.append(title)
+    showDiv.append(pOne)
+    showDiv.append(pTwo)
+    showDiv.append(pThree)
+    imageDiv.append(imageLink)
+    imageLink.append(image)
     imageLink.append(imdb)
-    showDiv.append(imageDiv)
-    
+    showDiv.append(imageDiv)  
     $('#show-info').append(showDiv)
   })
 }

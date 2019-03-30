@@ -12,6 +12,7 @@ p {
   align-items: stretch;
 }
 
+/* Sidebar */
 #sidebar {
   background-color: #333333;
   width: 16.666667%;
@@ -24,7 +25,10 @@ p {
   padding-left: 15px;
   overflow: scroll;
 }
-  #sidebar-title {
+  #title-image {
+    width: 100%;
+  }
+  #search-label {
     width: 100%;
     margin-top: 1rem;
   }
@@ -34,11 +38,9 @@ p {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  #submit-buttom {
+  .submit {
     width: 20%;
     float: left;
-  }
-  .sharp {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -59,6 +61,7 @@ p {
   right: 0;
 }
 
+/* Top buttons */
 #search-button-container {
   background-color: #252526;
   padding: 1rem;
@@ -73,33 +76,36 @@ p {
     padding: 0;
     margin-top: 1rem;
   }
+
+  /* Poster */
   #poster-div {
     position: relative;
     text-align: center;
     color: rgb(255, 255, 255, 0.5);
     opacity: 1;
-    transition: opacity 0.8s;
+    
   }
-    #poster-div:hover {
-      opacity: 0.8;
+    #poster {
+      transition: opacity 0.8s;
+    }
+    #poster-div:hover #poster{
+      opacity: 0.4;
     }
     #poster-div:hover #imdb{
       opacity: 1;
     }
-  #imdb {
-    color: #F5C518;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 5rem;
-    transition: opacity 0.8s;
-  }
-  #poster {
-    box-shadow: 0 8px 6px -6px black;
-  }
+    #imdb {
+      color: #F5C518;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      transition: opacity 0.8s;
+    }
 
+/* Gifs */
 #gif-display {
   background-color: #1E1E1E;
   padding: 1rem;
