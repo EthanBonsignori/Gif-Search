@@ -176,7 +176,7 @@ let displayInfo = (term, type) => {
         <div id="poster-div">
           <a href="${imdbLink}" target="_blank">
             <img src="${response.Poster}" id="poster" alt="Poster">
-            <p id="imdb"><i class="fab fa-imdb"></i></p>
+            <p id="imdb" data-toggle="tooltip" data-placement="bottom" title="View on IMDb"><i class="fab fa-imdb"></i></p>
           </a>
         </div>
         <h6 id="poster-text">click poster for more info</h6>
@@ -200,7 +200,7 @@ let displayInfo = (term, type) => {
     let imdbRating = response.imdbRating
     let score = `<p class="mt-2"><b>Metascore: </b>${metascore}</p>`
     if (metascore === 'N/A') {
-      score = `<p class="mt-2"><b>IMDb Score: </b> <i class="fas fa-star"></i> ${imdbRating}</p>`
+      score = `<p class="mt-2"><b>IMDb Score: </b> <i class="fas fa-star imdb-star"></i> ${imdbRating}</p>`
     }
     // If neither metascore or imdb rating exist - assume it is unreleased
     if (metascore === 'N/A' && imdbRating === 'N/A') {
@@ -239,3 +239,4 @@ $(document).ready(function () {
 // Call first, creates buttons for each item in the existing arrays
 generateButtons('series')
 generateButtons('movie')
+getTooltips()

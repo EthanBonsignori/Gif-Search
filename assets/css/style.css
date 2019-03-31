@@ -3,10 +3,6 @@ body {
   background-color: #1E1E1E;
 }
 
-p {
-  margin-bottom: 0.5rem;
-}
-
 .wrapper {
   display: flex;
   align-items: stretch;
@@ -25,9 +21,32 @@ p {
   padding-left: 15px;
   overflow: scroll;
 }
+  #title-div {
+    position: relative;
+    text-align: center;
+  }
   #title-image {
     width: 100%;
+    transition: opacity 0.5s;
   }
+    #title-div:hover #title-image {
+      opacity: 0.5;
+    }
+    #github {
+      font-size: 5rem;
+      color: #fff;
+      opacity: 0;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.8s;
+      cursor: pointer;
+    }
+    #title-div:hover #github {
+      opacity: 1;
+    }
   #search-label {
     width: 100%;
     margin-top: 1rem;
@@ -53,6 +72,12 @@ p {
     content: "";
     clear: both;
     display: table;
+  }
+  #info p {
+    margin-bottom: 0.5rem;
+  }
+  .imdb-star {
+    color: #F5C518;
   }
   /* Poster */
   #poster-div {
