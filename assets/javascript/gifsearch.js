@@ -81,7 +81,7 @@ let checkString = (text, type) => {
     return
   }
   if (type === 'neither') {
-    alert.html(`<strong>That isn't a movie or TV show!</strong>`)
+    alert.html(`<strong>Could not find that title... Check the spelling and try again.</strong>`)
     alert.addClass('show')
     return
   }
