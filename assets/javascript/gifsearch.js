@@ -69,7 +69,7 @@ let checkMovieOrShow = (input) => {
   })
 }
 
-// 
+// Check if proposed button has text, and doesn't already exist.
 let checkTitle = (title, type) => {
   let alert = $('.alert')
   if (title === '') {
@@ -88,6 +88,7 @@ let checkTitle = (title, type) => {
     return
   }
   alert.removeClass('show')
+  // Push button to correct array based on the response from the omdb ajax
   if (type === 'series') {
     series.push(title)
   }
@@ -99,17 +100,18 @@ let checkTitle = (title, type) => {
 
 // Search and append gifs
 $(document).on('click', '.search-button', function () {
+  // Select the gif container and empty it
   let gifDisplay = $('#gif-display')
   gifDisplay.empty()
+  // Get data from clicked button
   let searchType = $(this).attr('data-type')
   let searchTerm = $(this).attr('data-name')
+  // Set up query URL for giphy api
   let api = `4IYY54HZyXsYnTziL6RL5YrOlTPBe8Ab&q`
   let limit = $('#limit-select').val()
   let queryUrlgifs = `https://api.giphy.com/v1/gifs/search?api_key=${api}&q=${searchTerm}&limit=${limit}`
-
   displayInfo(searchTerm, searchType)
-
-  // Get gifs from giphy
+  // Get gifs from giphy api
   $.ajax({
     url: queryUrlgifs,
     method: 'GET'
@@ -121,6 +123,7 @@ $(document).on('click', '.search-button', function () {
       let animated = path.images.fixed_height.url
       let original = path.images.original.url
       let rating = path.rating
+      // Buiild each gif
       let newGif = $(`
         <figure class="gif-figure">
           <figcaption>rating: ${rating}</figcaption>
@@ -144,7 +147,7 @@ $(document).on('click', '.search-button', function () {
   })
 })
 
-// Shows movie info and poster
+// Find and display info for the movie or show on the sidebar
 let displayInfo = (term, type) => {
   let dateText = ''
   if (type === 'movie') {
@@ -155,7 +158,7 @@ let displayInfo = (term, type) => {
   let seriesSelector = $('#info')
   seriesSelector.empty()
   let queryURL = `https://www.omdbapi.com/?t=${term}&apikey=trilogy`
-  // Creating an AJAX call for the specific show
+  // Creating an AJAX call for the specific title
   $.ajax({
     url: queryURL,
     method: 'GET'
@@ -221,17 +224,18 @@ $(document).on('click', '.gif', function () {
   }
 })
 
+// Allows bootstrap tooltips to function
 let getTooltips = () => {
   $('[data-toggle="tooltip"]').tooltip()
 }
 
+// Load the custom scrollbar for the sidebar
 $(document).ready(function () {
-
   $('#sidebar').mCustomScrollbar({
     theme: 'minimal'
   })
 })
 
-
+// Call first, creates buttons for each item in the existing arrays
 generateButtons('series')
 generateButtons('movie')
