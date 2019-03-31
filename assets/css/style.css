@@ -63,6 +63,9 @@ p {
   }
     #poster {
       transition: opacity 0.8s;
+      -webkit-box-shadow: 0 8px 6px -6px black;
+         -moz-box-shadow: 0 8px 6px -6px black;
+              box-shadow: 0 8px 6px -6px black;
     }
     #poster-div:hover #poster{
       opacity: 0.4;
@@ -86,57 +89,60 @@ p {
       text-align: center;
     }
 
+/* Main page content */
 #content {
   width: calc(100% - 16.666667%);
   position: absolute;
   top: 0;
   right: 0;
 }
-
-/* Top buttons */
-.button-container {
-  background-color: #252526;
-  padding: 1rem;
-}
-  .search-button {
-    margin: 0.2rem;
+  /* Top buttons */
+  .button-container {
+    background-color: #252526;
+    padding: 1rem;
   }
-  #program-title {
-    margin-top: 2rem;
-  }
-  #info {
-    padding: 0;
-    margin-top: 1rem;
-  }
-
-/* Gifs */
-#gif-display {
-  background-color: #1E1E1E;
-  padding: 1rem;
-}
-  .gif-figure {
-    position: relative;
-    display: inline-block;
-  }
-  .gif {
-    margin: 0 1rem;
-    display: inline-block;
-    cursor: pointer;
-  }
-  figcaption {
-    margin-left: 1rem;
-    font-weight: bold;
-  }
-  .download {
-    color: rgba(0, 174, 255, 0.4);
-    font-size: 2rem;
-    position: absolute;
-    bottom: 0;
-    left: 20px;
-  }
-    .download:hover {
-      color: rgba(0, 174, 255, 0.8);
+    .search-button {
+      margin: 0.2rem;
     }
-    .download:active {
-      color: rgba(0, 174, 255, 1);
+    #program-title {
+      margin-top: 2rem;
     }
+    #info {
+      padding: 0;
+      margin-top: 1rem;
+    }
+
+  /* Gifs */
+  #gif-display {
+    background-color: #1E1E1E;
+    padding: 1rem;
+  }
+    .gif-figure {
+      position: relative;
+      display: inline-block;
+    }
+    .gif {
+      margin: 0 1rem;
+      display: inline-block;
+      cursor: pointer;
+      -webkit-box-shadow: 2px 2px 14px -3px #000;
+         -moz-box-shadow: 2px 2px 14px -3px #000;
+              box-shadow: 2px 2px 14px -3px #000;
+    }
+    figcaption {
+      margin-left: 1rem;
+      font-weight: bold;
+    }
+    .download {
+      color: rgba(0, 174, 255, 0.4);
+      font-size: 2rem;
+      position: absolute;
+      bottom: 0;
+      left: 20px;
+    }
+      .download:hover {
+        color: rgba(0, 174, 255, 0.8);
+      }
+      .download:active {
+        color: rgba(0, 174, 255, 1);
+      }

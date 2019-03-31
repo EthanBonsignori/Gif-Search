@@ -22,7 +22,6 @@
 </head>
 <body>
  
-  
   <div class="wrapper">
 
     <!-- Sidebar -->
@@ -35,7 +34,7 @@
             <label id="search-label" for="new-title">New Movie or Show</label>
             <input type="text" class="form-control" id="new-title" placeholder="Title...">
             <button type="button" class="btn btn-info submit" id="submit-button"><i class="fas fa-angle-double-right"></i></button>
-            <!-- Alert for when there is only spaces or button already exists-->
+            <!-- Alert -->
             <div class="alert alert-danger fade hide" role="alert"></div>
           </div>
         </form>
@@ -48,16 +47,17 @@
           <option value="30">30</option>
           <option value="50">50</option>
         </select>
-        <!-- Show info Appends here -->
+        <!-- Show info appends here -->
         <div id="info" class="col-12"></div>
-
     </nav><!-- End Sidebar -->
   
+    <!-- Buttons & Gifs -->
     <div id="content">
-      <!-- Search Buttons -->
+      <!-- Show buttons append here -->
       <div id="series" class="button-container">
           <h2>Shows</h2>
       </div>
+      <!-- Movie buttons append here -->
       <div id="movies" class="button-container">
         <h2>Movies</h2>
       </div>
@@ -72,7 +72,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-  <!-- jQuery Custom Scroller CDN -->
+  <!-- jQuery Custom Scroller -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
   <!-- My JavaScript -->

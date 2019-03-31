@@ -1,11 +1,11 @@
+// Array of titles to create buttons for when the page loads
 let series = ['game of thrones', 'stranger things', 'spongebob', 'the good place', 'last week tonight', 'curb your enthusiasm', 'seinfeld', 'the office', 'breaking bad', 'freaks and geeks']
 let movies = ['forrest gump', 'the room', 'the godfather', 'lord of the rings: the two towers', 'star wars: episode v', 'troll 2', 'toy story 4', 'lebowski']
 
-let buttonType
-let initVars = () => {
-  buttonType = 'neither'
-}
-// Create buttons based on what is in the topics array
+// Will hold the whether the clicked button is a movie or series
+let buttonType = ''
+
+// Create buttons based on the series & movies arrays
 let generateButtons = (type) => {
   let seriesButtons = $('#series')
   let movieButtons = $('#movies')
@@ -27,7 +27,8 @@ let generateButtons = (type) => {
       movieButtons.append(button)
     }
   }
-  initVars()
+  // Reset the button type
+  buttonType = ''
 }
 
 // When the user clicks the submit button, begin adding new button
@@ -45,9 +46,9 @@ let checkButton = () => {
   checkMovieOrShow(newButton)
 }
 
+// Run the input through the omdb api to check if it's a movie, show, or neither
 let checkMovieOrShow = (input) => {
   let queryURL = `https://www.omdbapi.com/?t=${input}&apikey=trilogy`
-
   $.ajax({
     url: queryURL,
     method: 'GET'
@@ -64,18 +65,19 @@ let checkMovieOrShow = (input) => {
       buttonType = 'neither'
       console.log('Not a movie or tv show!')
     }
-    checkString(input, buttonType)
+    checkTitle(input, buttonType)
   })
 }
 
-let checkString = (text, type) => {
+// 
+let checkTitle = (title, type) => {
   let alert = $('.alert')
-  if (text === '') {
+  if (title === '') {
     alert.html(`<strong>Some text is required!</strong>`)
     alert.addClass('show')
     return
   }
-  if (series.indexOf(text) >= 0 || movies.indexOf(text) >= 0) {
+  if (series.indexOf(title) >= 0 || movies.indexOf(title) >= 0) {
     alert.html(`<strong>Button already exists!</strong>`)
     alert.addClass('show')
     return
@@ -87,10 +89,10 @@ let checkString = (text, type) => {
   }
   alert.removeClass('show')
   if (type === 'series') {
-    series.push(text)
+    series.push(title)
   }
   if (type === 'movie') {
-    movies.push(text)
+    movies.push(title)
   }
   generateButtons(type)
 }
